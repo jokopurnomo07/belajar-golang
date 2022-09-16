@@ -12,5 +12,6 @@ func main(){
 	r.GET("/get/:name", getYourName)
 	r.POST("/add-data", addData)
 	r.PUT("/edit-data/:id", editData)
+	r.POST("/upload", uploadFile)
 	r.Run()
 }

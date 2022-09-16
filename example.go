@@ -6,8 +6,8 @@ import (
 )
 
 type Person struct {
-	Name string `json: "name"`
-	Age int `json: "age"`
+	Name string `json:"name" form:"name"`
+	Age int `json:"age" form:"age"`
 }
 
 func getting(c *gin.Context){
@@ -56,6 +56,23 @@ func editData(c *gin.Context){
 		c.JSON(http.StatusOK, gin.H{
 			"id": id,
 			"nama": form.Name,
+			"age": form.Age,
+		})
+	}
+}
+
+func uploadFile(c *gin.Context){
+	file, _ := c.FormFile("upload")
+	var form Person
+	err := c.ShouldBind(&form)
+	if err != nil{
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "u have an error",
+		})
+	}else{
+		c.JSON(http.StatusOK, gin.H{
+			"your_file": file.Filename,
+			"name": form.Name,
 			"age": form.Age,
 		})
 	}
